@@ -6,7 +6,7 @@ const router = require('express').Router();
  */
 router.get('/', async (req, res) => {
     res.render('homepage', {
-        // req.session.loggedIn
+        loggedIn: req.session.loggedIn
     });
 });
 
