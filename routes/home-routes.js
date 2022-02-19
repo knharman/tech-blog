@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
  */
  router.get('/login', async (req, res) => {
     res.render('login', {
-        // req.session.loggedIn
+        loggedIn: req.session.loggedIn
     });
 });
 
