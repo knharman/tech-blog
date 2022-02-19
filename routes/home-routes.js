@@ -1,3 +1,5 @@
+const { route } = require('.');
+const postsRoutes = require('./posts');
 const router = require('express').Router();
 
 /**
@@ -12,13 +14,15 @@ router.get('/', async (req, res) => {
                 title: 'Why MVC is so important', 
                 body: 'Here is the post', 
                 username: 'wigg', 
-                date: '2/18/2022'
+                date: '2/18/2022', 
+                id: 1
             }, 
             {
                 title: 'Object-Relational Mapping', 
                 body: 'Here is the post', 
                 username: 'wigg', 
-                date: '2/18/2022'
+                date: '2/18/2022', 
+                id: 2
             }
         ]
     });
@@ -57,5 +61,7 @@ router.get('/', async (req, res) => {
         loggedIn: req.session.loggedIn
     });
 });
+
+router.use('/posts', postsRoutes)
 
 module.exports = router;
