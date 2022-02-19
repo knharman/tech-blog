@@ -1,7 +1,16 @@
+const Post = require('../models/Post');
+
 const router = require('express').Router();
 
-router.get('/:id', (req, res) => {
+/**
+ * GET
+ * /posts/id
+ */
+router.get('/:id', async (req, res) => {
+    const post = await Post.findByPk(req.params.id)
+
     res.render('post', {
+        shouldBeAbleToDelete: post.owner_id == req.session.userId,
         loggedIn: req.session.loggedIn, 
         title: 'Why MVC is so important', 
         body: 'Here is the post', 

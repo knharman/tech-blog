@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
             posts: allPosts
         });
     } else { 
-        res.redirect('/')
+        res.redirect('/login')
     }
 });
 
