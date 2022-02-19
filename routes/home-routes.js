@@ -1,30 +1,33 @@
-const { route } = require('.');
 const postsRoutes = require('./posts');
 const router = require('express').Router();
-
+const Post = require('../models/Post');
 /**
  * route for "/"
  * homepage
  */
 router.get('/', async (req, res) => {
+    // res.render('homepage', {
+    //     loggedIn: req.session.loggedIn, 
+    //     posts: [
+    //         {
+    //             title: 'Why MVC is so important', 
+    //             body: 'Here is the post', 
+    //             username: 'wigg', 
+    //             date: '2/18/2022', 
+    //             id: 1
+    //         }, 
+    //         {
+    //             title: 'Object-Relational Mapping', 
+    //             body: 'Here is the post', 
+    //             username: 'wigg', 
+    //             date: '2/18/2022', 
+    //             id: 2
+    //         }
+    //     ]
+    // });
     res.render('homepage', {
         loggedIn: req.session.loggedIn, 
-        posts: [
-            {
-                title: 'Why MVC is so important', 
-                body: 'Here is the post', 
-                username: 'wigg', 
-                date: '2/18/2022', 
-                id: 1
-            }, 
-            {
-                title: 'Object-Relational Mapping', 
-                body: 'Here is the post', 
-                username: 'wigg', 
-                date: '2/18/2022', 
-                id: 2
-            }
-        ]
+        posts: await Post.findAll()
     });
 });
 
@@ -33,8 +36,9 @@ router.get('/', async (req, res) => {
  * dashboard
  */
  router.get('/dashboard', async (req, res) => {
+    console.log(req.session)
     res.render('dashboard', {
-        loggedIn: req.session.loggedIn, 
+        loggedIn: req.session.loggedIn,
         posts: [
             {
                 title: 'Why MVC is so important', 
