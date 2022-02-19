@@ -5,7 +5,7 @@ const router = require('express').Router();
 router.post('/', async (req, res) => {
     try {
         if (req.session.loggedIn) {
-            Post.create({
+            await Post.create({
                 title: req.body.title,
                 body: req.body.body,
                 owner_id: req.session.userId

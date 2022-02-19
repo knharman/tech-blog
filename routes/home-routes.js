@@ -1,33 +1,28 @@
 const postsRoutes = require('./posts');
 const router = require('express').Router();
 const Post = require('../models/Post');
+const User = require('../models/User');
 /**
  * route for "/"
  * homepage
  */
 router.get('/', async (req, res) => {
-    // res.render('homepage', {
-    //     loggedIn: req.session.loggedIn, 
-    //     posts: [
-    //         {
-    //             title: 'Why MVC is so important', 
-    //             body: 'Here is the post', 
-    //             username: 'wigg', 
-    //             date: '2/18/2022', 
-    //             id: 1
-    //         }, 
-    //         {
-    //             title: 'Object-Relational Mapping', 
-    //             body: 'Here is the post', 
-    //             username: 'wigg', 
-    //             date: '2/18/2022', 
-    //             id: 2
-    //         }
-    //     ]
-    // });
+    const allPosts = await Post.findAll({
+        attributes: ['id', 'title', 'body', 'owner_id', 'createdAt'],
+        raw: true,
+        include: [
+            User
+        ], 
+        order: [
+            [
+                'createdAt', 'DESC'
+            ]
+        ]
+    })
+    allPosts.map(post => post.username = post['user.username'])
     res.render('homepage', {
         loggedIn: req.session.loggedIn, 
-        posts: await Post.findAll()
+        posts: allPosts
     });
 });
 
@@ -36,24 +31,31 @@ router.get('/', async (req, res) => {
  * dashboard
  */
  router.get('/dashboard', async (req, res) => {
-    console.log(req.session)
-    res.render('dashboard', {
-        loggedIn: req.session.loggedIn,
-        posts: [
-            {
-                title: 'Why MVC is so important', 
-                body: 'Here is the post', 
-                username: 'wigg', 
-                date: '2/18/2022'
+
+    if(req.session.loggedIn) {
+        const allPosts = await Post.findAll({
+            attributes: ['id', 'title', 'body', 'owner_id', 'createdAt'],
+            raw: true,
+            include: [
+                User
+            ], 
+            where: {
+                owner_id: req.session.userId
             }, 
-            {
-                title: 'Object-Relational Mapping', 
-                body: 'Here is the post', 
-                username: 'wigg', 
-                date: '2/18/2022'
-            }
-        ]
-    });
+            order: [
+                [
+                    'createdAt', 'DESC'
+                ]
+            ]
+        })
+        allPosts.map(post => post.username = post['user.username'])
+        res.render('dashboard', {
+            loggedIn: req.session.loggedIn, 
+            posts: allPosts
+        });
+    } else { 
+        res.redirect('/')
+    }
 });
 
 /**
