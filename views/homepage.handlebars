@@ -1,5 +1,9 @@
 <h1>Homepage</h1>
 
-{{#if loggedIn}}
-    logged in
-{{/if}}
+{{#each posts}}
+<div>
+    <h5>{{ title }}</h5>
+    <p>{{ body }}</p>
+    <span>Posted by {{ username }} on {{ date }}</span>
+</div>
+{{/each}}

@@ -6,7 +6,21 @@ const router = require('express').Router();
  */
 router.get('/', async (req, res) => {
     res.render('homepage', {
-        loggedIn: req.session.loggedIn
+        loggedIn: req.session.loggedIn, 
+        posts: [
+            {
+                title: 'Why MVC is so important', 
+                body: 'Here is the post', 
+                username: 'wigg', 
+                date: '2/18/2022'
+            }, 
+            {
+                title: 'Object-Relational Mapping', 
+                body: 'Here is the post', 
+                username: 'wigg', 
+                date: '2/18/2022'
+            }
+        ]
     });
 });
 
@@ -16,7 +30,21 @@ router.get('/', async (req, res) => {
  */
  router.get('/dashboard', async (req, res) => {
     res.render('dashboard', {
-        // req.session.loggedIn
+        loggedIn: req.session.loggedIn, 
+        posts: [
+            {
+                title: 'Why MVC is so important', 
+                body: 'Here is the post', 
+                username: 'wigg', 
+                date: '2/18/2022'
+            }, 
+            {
+                title: 'Object-Relational Mapping', 
+                body: 'Here is the post', 
+                username: 'wigg', 
+                date: '2/18/2022'
+            }
+        ]
     });
 });
 
