@@ -2,6 +2,24 @@ const Post = require('../../models/Post');
 
 const router = require('express').Router();
 
+router.delete('/:id', async (req, res) => {
+    if (!req.session.loggedIn) {
+        res.redirect('/')
+        return
+    }
+
+    const post = await Post.findByPk(req.params.id, { raw: true })
+
+    if (req.session.userId == post.owner_id) {
+        await Post.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.status(200).send()
+    }
+})
+
 router.post('/', async (req, res) => {
     try {
         if (req.session.loggedIn) {
