@@ -33,7 +33,7 @@
         <p>{{ text }}</p>
 
         <span class="text-muted">Posted by: {{ user.username }} on {{ createdAt }}</span>
-        {{#if ../shouldBeAbleToDelete}}
+        {{#if isCommentOwner}}
         <div class="mt-3">
             <button class="btn btn-warning" id="edit-comment-button" data-comment-id="{{ id }}">Edit</button>
             <button class="btn btn-danger delete-comment-button" data-comment-id="{{ id }}">Delete</button>

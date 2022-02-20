@@ -15,6 +15,15 @@ router.get('/:id', async (req, res) => {
         ]
     }) 
 
+    let comments = post.toJSON().comments 
+    comments = comments.map(comment => {
+        return {
+            ...comment, 
+            isCommentOwner: comment.user_id == req.session.userId
+        }
+    })
+
+
     res.render('post', {
         shouldBeAbleToDelete: post.owner_id == req.session.userId,
         loggedIn: req.session.loggedIn, 
@@ -23,7 +32,7 @@ router.get('/:id', async (req, res) => {
         username: post.user.username, 
         date: post.createdAt,
         id: req.params.id, 
-        comments: post.toJSON().comments
+        comments: comments
     });
 })
 
