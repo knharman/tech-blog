@@ -39,4 +39,22 @@ router.put('/', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    if (!req.session.loggedIn) {
+        res.redirect('/login')
+        return
+    }
+
+    const comment = await Comment.findByPk(req.params.id, { raw: true })
+
+    if (req.session.userId == comment.user_id) {
+        await Comment.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.status(200).send()
+    }
+})
+
 module.exports = router;

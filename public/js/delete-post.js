@@ -67,16 +67,16 @@ const editComment = async (event) => {
 };
 
 const delComment = async (event) => {
-  let postId = event.target.getAttribute('data-post-id');
-  const response = await fetch('/api/posts/' + postId, {
+  let commentId = event.target.getAttribute('data-comment-id');
+  const response = await fetch('/api/comments/' + commentId, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   });
 
   if (response.ok) {
-    document.location.replace('/dashboard');
+    document.location.reload();
   } else {
-    alert('Failed to delete post.');
+    alert('Failed to delete comment.');
   }
 };
 

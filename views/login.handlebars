@@ -1,17 +1,28 @@
-<h1>Login Screen</h1>
+<h1 class="mt-5">Login/Sign Up</h1>
+<h3 class="mt-3">Login</h3>
 <form class="login-form">
-    <h3>Login</h3>
-    <input type="email" id="email-login" placeholder="Email">
-    <input type="password" id="password-login" placeholder="Password">
-    <button type="submit">Login</button>
+    <div class="mb-3">
+        <input class="form-control" type="email" name="login-email" id="email-login" placeholder="Email">
+    </div>
+    <div class="mb-3">
+        <input class="form-control" type="password" id="password-login" placeholder="Password">
+    </div>
+    
+    <button class="btn btn-primary" type="submit">Login</button>
 </form>
 
+<h3 class="mt-5">Sign Up</h3>
 <form class="signup-form">
-    <h3>Sign Up</h3>
-    <input type="text" id="username-signup" placeholder="Username">
-    <input type="email" id="email-signup" placeholder="Email">
-    <input type="password" id="password-signup" placeholder="Password">
-    <button type="submit">Sign Up</button>
+    <div class="mb-3">
+        <input class="form-control" type="text" id="username-signup" placeholder="Username">
+    </div>
+    <div class="mb-3">
+        <input class="form-control" type="email" id="email-signup" placeholder="Email">
+    </div>
+    <div class="mb-3">
+        <input class="form-control" type="password" id="password-signup" placeholder="Password">
+    </div>
+    <button class="btn btn-primary" type="submit">Sign Up</button>
 </form>
 
 <script src="./js/login.js"></script>

@@ -1,9 +1,13 @@
-<h1>Homepage</h1>
+<h1 class="mt-5">Homepage</h1>
 
 {{#each posts}}
-<div>
-    <h5><a href="/posts/{{ id }}">{{ title }}</a></h5>
-    <p>{{ body }}</p>
-    <span>Posted by {{ username }} on {{ createdAt }}</span>
-</div>
+<a class="m-5" href="/posts/{{ id }}" style="text-decoration: none; color: black;">
+    <div class="card p-3 shadow-sm bg-body rounded">
+        <div class="card-body">
+            <h5 class="card-title">{{ title }}</h5>
+        <p>{{ body }}</p>
+        <span>Posted by {{ username }} on {{ createdAt }}</span>
+        </div>
+    </div>
+</a>
 {{/each}}
