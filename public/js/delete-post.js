@@ -39,6 +39,46 @@ const showEditForm = async (event) => {
   editForm.removeAttribute('hidden')
 };
 
+const showEditCommentForm = async (event) => {
+  const commentId = event.target.getAttribute('data-comment-id');
+  console.log(commentId)
+  const editForm = document.getElementById('edit-comment-form-' + commentId)
+  editForm.removeAttribute('hidden')
+};
+
+const editComment = async (event) => {
+  event.preventDefault();
+  const id = event.target.getAttribute('data-comment-id');
+  const text = document.querySelector('#text-' + id).value.trim();
+
+  if (text) {
+    const response = await fetch('/api/comments/', {
+      method: 'PUT',
+      body: JSON.stringify({ text, id }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+      document.location.reload();
+    } else {
+      alert('Failed to update comment.');
+    }
+  }
+};
+
+const delComment = async (event) => {
+  let postId = event.target.getAttribute('data-post-id');
+  const response = await fetch('/api/posts/' + postId, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (response.ok) {
+    document.location.replace('/dashboard');
+  } else {
+    alert('Failed to delete post.');
+  }
+};
 
 document.querySelectorAll('.delete-button').forEach(deleteButton => {
   deleteButton.addEventListener('click', del)
@@ -50,4 +90,16 @@ document.querySelectorAll('#edit-form').forEach(form => {
 
 document.querySelectorAll('#edit-button').forEach(editButton => {
   editButton.addEventListener('click', showEditForm)
+})
+
+document.querySelectorAll('#edit-comment-button').forEach(editButton => {
+  editButton.addEventListener('click', showEditCommentForm)
+})
+
+document.querySelectorAll('.delete-comment-button').forEach(deleteButton => {
+  deleteButton.addEventListener('click', delComment)
+})
+
+document.querySelectorAll('.edit-comment-form').forEach(form => {
+  form.addEventListener('submit', editComment)
 })

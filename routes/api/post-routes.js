@@ -48,7 +48,7 @@ router.put('/', async (req, res) => {
 
         post.title = req.body.title
         post.body = req.body.body
-        post.save()
+        await post.save()
         res.status(200).end()
         return
     }
