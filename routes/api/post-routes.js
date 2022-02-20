@@ -36,4 +36,22 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.put('/', async (req, res) => {
+    if (req.session.loggedIn) {
+
+        const post = await Post.findByPk(req.body.id)
+
+        if (post.owner_id != req.session.userId) {
+            res.status(400).send()
+            return
+        }
+
+        post.title = req.body.title
+        post.body = req.body.body
+        post.save()
+        res.status(200).end()
+        return
+    }
+})
+
 module.exports = router;

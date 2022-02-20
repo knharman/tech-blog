@@ -2,7 +2,22 @@
 <p>{{ body }}</p>
 <span>Posted by {{ username }} on {{ date }}</span>
 {{#if shouldBeAbleToDelete}}
+<button id="edit-button">✏️</button>
 <button id="delete-button" data-post-id="{{ id }}">❌</button>
+
+<form id="edit-form" hidden>
+    <h3>Edit Post</h3>
+    <label for="title">Title: </label>
+    <input type="text" name="title" id="title" value="{{ title }}" required>
+
+    <label for="body">Body: </label>
+    <textarea name="body" rows="10" cols="30" id="body" required>{{ body }}</textarea>
+
+    <input type="hidden" name="postId" id="id" value="{{ id }}" />
+
+    <button type="submit">Edit Post</button>
+</form>
+
 {{/if}}
 <form method="post" action="/api/comments">
     <label for="comment">Comment: </label>
