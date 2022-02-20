@@ -1,7 +1,7 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Comment = require('../models/Comment');
 const router = require('express').Router();
-const sequelize = require('sequelize');
 
 /**
  * GET
@@ -10,7 +10,8 @@ const sequelize = require('sequelize');
 router.get('/:id', async (req, res) => {
     const post = await Post.findByPk(req.params.id, {
         include: [
-            User
+            {model: User}, 
+            {model: Comment, include: [User]}
         ]
     }) 
 
@@ -21,7 +22,8 @@ router.get('/:id', async (req, res) => {
         body: post.body, 
         username: post.user.username, 
         date: post.createdAt,
-        id: req.params.id
+        id: req.params.id, 
+        comments: post.toJSON().comments
     });
 })
 
