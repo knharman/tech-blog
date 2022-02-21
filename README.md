@@ -1,4 +1,4 @@
-# THe Tech Blog
+# The Tech Blog
   
   ### Description
   A CMS-style blog site where you can publish articles, blog posts, and add comments to other posts.  
